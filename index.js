@@ -28,7 +28,7 @@ const backgroundImage = {
     },
 }
 
-
+//teste
 
 // Timer 
 
@@ -48,12 +48,9 @@ function updateTime () {
 
     time --
 
-    if(minutes === 0 && seconds === 00){
-        clearInterval(updateTime)
-    }
-
-
+   
 }
+
 
 
 
