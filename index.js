@@ -6,6 +6,10 @@ const canvasLeft = canvas.offsetLeft;
 const canvasTop = canvas.offsetTop;
 const ctx = canvas.getContext("2d");
 
+var theScore = document.querySelector("#realScore");
+
+var score = 0;
+
 //img background
 
 const backgroundImage = {
@@ -21,25 +25,29 @@ const backgroundImage = {
 
 // Timer
 
-/* const startMinutes = 2;
-let time = (startMinutes * 60)-1;
+let startMinutes = 2;
+let time = (startMinutes * 60);
 
-const theClock = document.getElementById('clock');
 
-function updateTime () {
+let theClock = document.getElementById("clock");
 
-    const minutes = Math.floor(time/60);
-    let seconds = time % 60;
+function updateTime() {
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
 
-    seconds = seconds < 10 ? '0' + seconds : seconds;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    theClock.innerHTML = `${minutes}:${seconds}`;
+  theClock.innerHTML = `${minutes}:${seconds}`;
 
-    time --
+  time--;
 
-   
-} */
-0;
+  console.log(time)
+
+  if(time===1){
+    clearInterval()
+  }
+  
+}
 
 window.onload = function () {
   document.getElementById("btnStart").onclick = function () {
@@ -48,21 +56,25 @@ window.onload = function () {
   };
 };
 
+
+
 //main function
 
 function startGame() {
   img.onload = startGame;
-  /* setInterval(updateTime,1000) */
+
+ /* let theTimer = setInterval(updateTime,50) */ 
+ 
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     backgroundImage.draw();
     trashAppears();
     fishAppears();
-
-    //click();
-  }, 20);
+  }, 20)
+  ;
 }
+
 
 // adding the trash
 
@@ -161,6 +173,8 @@ canvas.addEventListener("click", (event) => {
       x < element.x + element.width
     ) {
       console.log("buuhhhhh");
+      score = score - 30;
+      theScore.innerHTML = score;
     }
   });
 
@@ -174,31 +188,11 @@ canvas.addEventListener("click", (event) => {
       theTrash = theTrash.filter((trash) => {
         return trash.id !== element.id;
       });
-      console.log(element);
+
+      score = score + 100;
+      theScore.innerHTML = score;
     }
   });
 });
 
-/* let indFish = 0 */
-/*   element.indFish = indFish //0 //1 */
-/* indFish++  */
-/*  elementes[element.indFish] */
-/*  let berlchior ={firstName:`'Belchior`}
-    console.log(berlchior) ==> {firstName:`'Belchior`}
-    berlchior.city = 'Ericeira'
-    console.log(berlchior) ==> {firstName:`'Belchior`, city:'Ericeira',} */
-
-/*  let userClickeelement = [0]
-    const person = [
-        {name: 'belchior',
-         indFish:0   },
-         {name: 'alvaro',
-         indFish:1,
-        }
-    ]
-person.forEach(element => {
-
-   person.delete(person[element.indFish])
-
-
-})  */
+// difficulty
