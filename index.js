@@ -6,6 +6,9 @@ const canvasLeft = canvas.offsetLeft;
 const canvasTop = canvas.offsetTop;
 const ctx = canvas.getContext("2d");
 
+const imageTrash = new Image();
+imageTrash.src = "./__cartoon_fish_06_yellow_swim.png" 
+
 var theScore = document.querySelector("#realScore");
 
 var score = 0;
@@ -25,7 +28,7 @@ const backgroundImage = {
 
 // Timer
 
-let startMinutes = 2;
+/* let startMinutes = 2;
 let time = (startMinutes * 60);
 
 
@@ -47,7 +50,7 @@ function updateTime() {
     clearInterval()
   }
   
-}
+} */
 
 window.onload = function () {
   document.getElementById("btnStart").onclick = function () {
@@ -56,25 +59,21 @@ window.onload = function () {
   };
 };
 
-
-
 //main function
 
 function startGame() {
   img.onload = startGame;
 
- /* let theTimer = setInterval(updateTime,50) */ 
- 
+  /* let theTimer = setInterval(updateTime,50) */
+
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     backgroundImage.draw();
     trashAppears();
     fishAppears();
-  }, 20)
-  ;
+  }, 20);
 }
-
 
 // adding the trash
 
@@ -102,6 +101,7 @@ class Trash {
     this.move(),
       (ctx.fillStyle = this.color),
       ctx.fillRect(this.x, this.y, this.width, this.height);
+      
   }
 }
 
@@ -109,26 +109,35 @@ function trashAppears() {
   theTrash.forEach((trash) => {
     trash.draw();
   });
-
+  const randomX = randomIntFromInterval(10, 60);
+  const trashPositionX = canvas.width + randomX;
   if (frames % 100 === 0) {
     const newT = randomIntFromInterval(40, 400);
-    theTrash.push(new Trash(canvas.width, newT, 20, 20, "red", -1, trashIds));
+    theTrash.push(new Trash(trashPositionX, newT, 30, 30, "red", -1, trashIds));
     trashIds++;
   }
+  
 }
+
 
 //adding the fish
 
 let theFish = [];
 
+let theFishIds = 1;
+
 class Fish {
-  constructor(argX, argY, argWidth, argHeight, argColor, argSpeed) {
+  constructor(argX, argY, argWidth, argHeight, argColor, argSpeed, argID,argFishWidth, argFishHeight) {
     this.x = argX;
     this.y = argY;
     this.width = argWidth;
     this.height = argHeight;
     this.color = argColor;
     this.speed = argSpeed;
+    this.id = argID;
+    this.fishImgWidth = 498;
+    this.fishImgHeight = 327
+
   }
 
   move() {
@@ -138,18 +147,25 @@ class Fish {
   draw() {
     this.move(),
       (ctx.fillStyle = this.color),
-      ctx.fillRect(this.x, this.y, this.width, this.height);
+      //ctx.fillRect(this.x, this.y, this.width, this.height)
+      ctx.drawImage(imageTrash,0,0,this.fishImgWidth,this.fishImgHeight,this.x,this.y,this.width, this.height);
   }
 }
+
 
 function fishAppears() {
   theFish.forEach((fish) => {
     fish.draw();
   });
+  const randomX = randomIntFromInterval(10, 60);
+  const fishPositionX = canvas.width + randomX;
   frames++;
   if (frames % 100 === 0) {
     const newY = randomIntFromInterval(40, 400);
-    theFish.push(new Fish(canvas.width, newY, 20, 20, "green", -1));
+    theFish.push(
+      new Fish(fishPositionX, newY, 40, 40, "green", -2, theFishIds)
+    );
+    theFishIds++;
   }
 }
 
@@ -172,6 +188,9 @@ canvas.addEventListener("click", (event) => {
       x > element.x &&
       x < element.x + element.width
     ) {
+      theFish = theFish.filter((fish) => {
+        return fish.id !== element.id;
+      });
       console.log("buuhhhhh");
       score = score - 30;
       theScore.innerHTML = score;
