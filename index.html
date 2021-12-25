@@ -1,55 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ocean Clean Up Game</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ocean Clean Up Game</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
-    <div class='scoreAndTime'>
-    <div>Score</div>
-    <br>
-        <span id="realScore">0</span>
-    <br>
-    <br>
-    <br>
-        <div><p>Timer</p>
-            <div>
-                <p id="clock">2:00</p>
-            </div>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <a href="https://www.linkedin.com/in/belchior-font%C3%A3o/" target="_blank">
-            <img src="./linkedin.png" alt="linkedin" width="30">
-        </a>
-
-    
+  <div class="aquaman" >
+    <div class="aquaman">
+      <img src="./aquaman4.png" alt="">
     </div>
-   <div class="mainContainer">
+  </div>
+  <div class="introduction">
 
 
-    <canvas class="myCanvas" width="746" height="480" ></canvas>
-    <br>
-    <button id="btnStart">START</button>
-
-
-
-
-
-   </div>
- 
-
+    <div class="text">
+    <span class="text1">
+      Hello friend! I need your help, unfortunately, I am not a real superhero like those in Marvel movies.
+    </span>
+<br>
+<br>
+    <span class="text2">
+      Our ocean is full of trash and I can't clean it all by myself. Do you accept this challenge?
+    </span>
+<br>
+<br>
+    <span class="text3">It is very simple, our mission is to pick up the trash that will be appearing, but be careful to not click on those fishes! We don't wanna remove them from their habitat. </span>
     
-    <script src="./index.js"></script>
+<br>
+<br>
+<span class="text4">If you are ready to go press the "Start Game" button and enjoy :) </span>
+<br><br>
+    <a href="https://www.linkedin.com/in/belchior-font%C3%A3o/" target="_blank">
+      <img src="./linkedin.png" alt="linkedin" width="30" />
+    </a>
+  
+     </div>
+  </div>
+  <div class="mainContainer">
+    <div class="scoreAndTime">
+      <div class="score">
+        <p>Score:</p>
+        <span id="realScore"> 0</span>
+      </div>
+    </div>
+
+    <div class="theTime">
+
+     
+      <span id="clock"> 02:30</span>
+
+
+
+    </div>
+
+    <div class="startAndGame">
+
+
+      <canvas class="myCanvas" width="746" height="480"></canvas>
+      <br />
+      <button id="btnStart">START GAME</button>
+    </div>
+  </div>
+
+
+
+  <script src="./index.js"></script>
 </body>
+
 </html>
-
-
-
-
-
