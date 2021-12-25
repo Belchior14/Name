@@ -11,13 +11,13 @@ const scoreAndTime = document.querySelector(".scoreAndTime");
 //scoreAndTime.style.display = "none"
 
 const imageFish1 = new Image();
-imageFish1.src = "./__cartoon_fish_06_yellow_swim.png";
+imageFish1.src = "./cartoon_fish_06_yellow_swim.png";
 
 const imageTrash = new Image();
-imageTrash.src ="./__cartoon_fish_06_green_swim.png"
+imageTrash.src ="./cartoon_fish_06_green_swim.png"
 
 const imageTrash2 = new Image();
-imageTrash2.src = "./__cartoon_fish_06_blue_swim.png"
+imageTrash2.src = "./cartoon_fish_06_blue_swim.png"
 
 
 var theScore = document.querySelector("#realScore");
