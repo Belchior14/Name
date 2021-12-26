@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 /*
 body {
 
@@ -12,71 +11,34 @@ body {
 }
 */
 
-
-
-
-.introduction{
-
+.introduction {
   position: absolute;
   width: 250px;
   height: 300px;
   top: 50px;
   left: 20px;
   text-align: justify;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   top: 200px;
-
 }
 
-.text{
+.text {
   top: 500px;
   color: rgb(189, 189, 0);
 }
 
-
-.aquaman{
+.aquaman {
   position: absolute;
 }
 
-
-
-
-
 .startAndGame {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.scoreAndTime {
-  z-index: 2;
-  padding-right: 5%;
-  position: absolute;
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  top: 15px;
-  left: 320px;
-  cursor: pointer;
-  
-}
 
-.score{
-  display: flex;
-  font-size: 150%;
-  
-}
-
-.theTime{
-  position: absolute;
-  display: flex;
-  left: 970px;
-  top: 18px;
-  font-size: 150%;
-  cursor: pointer;
-}
 
 #btnStart {
   cursor: pointer;
@@ -93,4 +55,5 @@ body {
 canvas {
   cursor: pointer;
   border: 3px solid black;
+  
 }

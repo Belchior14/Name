@@ -20,9 +20,11 @@ const imageTrash2 = new Image();
 imageTrash2.src = "./cartoon_fish_06_blue_swim.png"
 
 
-var theScore = document.querySelector("#realScore");
 
+var timer ="02:30"
 var score = 0;
+
+
 
 //img background
 
@@ -32,19 +34,24 @@ const backgroundImage = {
 
   draw: function () {
     ctx.drawImage(this.img, this.x, 0, 746, 480);
+    ctx.fillStyle = "black"
+    ctx.font = '25px sans-serif'
+    ctx.fillText(`Score: ${score}`,25,50)
+    ctx.fillText(`${timer}`,650,50)
+   
   },
 };
 
 // Timer
 
-const timer = document.querySelector("#clock");
+
 
 let time = 150;
 
 function realTime(second) {
   const min = Math.floor(second / 60);
   const sec = Math.floor(second % 60);
-  timer.textContent = `${min < 10 ? "0" : ""}${min}:${
+  timer = `${min < 10 ? "0" : ""}${min}:${
     sec < 10 ? "0" : ""
   }${sec}`;
 }
@@ -64,7 +71,7 @@ function startGame() {
   img.onload = startGame;
 
   document.getElementById("btnStart").style.display = "none";
-  scoreAndTime.style.display = "block"
+ 
 
 
   const timesUp = setInterval(() => {
@@ -73,12 +80,13 @@ function startGame() {
 
     if (time <= 0 || time < 1) {
       clearInterval(timesUp);
-      time.textContent = "00:00";
+      timer = "00:00";
     }
   }, 1000);
 
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 
 
     backgroundImage.draw();
@@ -393,9 +401,9 @@ canvas.addEventListener("click", (event) => {
       theFish = theFish.filter((fish) => {
         return fish.id !== element.id;
       });
-      console.log("buuhhhhh");
+  
       score = score - 30;
-      theScore.innerHTML = score;
+    
     }
   });
 
@@ -411,7 +419,7 @@ canvas.addEventListener("click", (event) => {
       });
 
       score = score + 100;
-      theScore.innerHTML = score;
+    
     }
   });
   theTrash2.forEach((element) => {
@@ -426,7 +434,7 @@ canvas.addEventListener("click", (event) => {
       });
 
       score = score + 100;
-      theScore.innerHTML = score;
+     
     }
   });
 });
