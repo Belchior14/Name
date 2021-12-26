@@ -5,26 +5,32 @@ const canvas = document.querySelector(".myCanvas");
 const canvasLeft = canvas.offsetLeft;
 const canvasTop = canvas.offsetTop;
 const ctx = canvas.getContext("2d");
-
-
-const scoreAndTime = document.querySelector(".scoreAndTime");
-//scoreAndTime.style.display = "none"
+const playAgain = document.querySelector("#btnPlayAgain");
+const checkHighScore = document.querySelector(".highScore");
 
 const imageFish1 = new Image();
 imageFish1.src = "./cartoon_fish_06_yellow_swim.png";
 
 const imageTrash = new Image();
-imageTrash.src ="./cartoon_fish_06_green_swim.png"
+imageTrash.src = "./cartoon_fish_06_green_swim.png";
 
 const imageTrash2 = new Image();
-imageTrash2.src = "./cartoon_fish_06_blue_swim.png"
+imageTrash2.src = "./cartoon_fish_06_blue_swim.png";
 
-
-
-var timer ="02:30"
+var timer = "02:30";
 var score = 0;
+var highScore = localStorage.getItem("highestScore") || 0;
+checkHighScore.textContent = `High Score: ${highScore}`;
 
+// check the High Score
 
+function highhiestScore() {
+  if (score > localStorage.getItem("highestScore")) {
+    localStorage.setItem("highestScore", score);
+    highScore = score;
+    checkHighScore.textContent = `High Score: ${highScore}`;
+  }
+}
 
 //img background
 
@@ -34,26 +40,21 @@ const backgroundImage = {
 
   draw: function () {
     ctx.drawImage(this.img, this.x, 0, 746, 480);
-    ctx.fillStyle = "black"
-    ctx.font = '25px sans-serif'
-    ctx.fillText(`Score: ${score}`,25,50)
-    ctx.fillText(`${timer}`,650,50)
-   
+    ctx.fillStyle = "black";
+    ctx.font = "25px sans-serif";
+    ctx.fillText(`Score: ${score}`, 25, 50);
+    ctx.fillText(`${timer}`, 650, 50);
   },
 };
 
 // Timer
-
-
 
 let time = 150;
 
 function realTime(second) {
   const min = Math.floor(second / 60);
   const sec = Math.floor(second % 60);
-  timer = `${min < 10 ? "0" : ""}${min}:${
-    sec < 10 ? "0" : ""
-  }${sec}`;
+  timer = `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
 }
 
 // timer done
@@ -71,8 +72,16 @@ function startGame() {
   img.onload = startGame;
 
   document.getElementById("btnStart").style.display = "none";
- 
+  highhiestScore();
 
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    backgroundImage.draw();
+    trashAppears();
+    fishAppears();
+    trashAppears2();
+  }, 20);
 
   const timesUp = setInterval(() => {
     time--;
@@ -80,22 +89,26 @@ function startGame() {
 
     if (time <= 0 || time < 1) {
       clearInterval(timesUp);
+      highhiestScore();
       timer = "00:00";
+      playAgain.style.visibility = "visible";
+      theFish = [];
+      theTrash = [];
+      theTrash2 = [];
     }
   }, 1000);
-
-  setInterval(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-
-    backgroundImage.draw();
-    trashAppears();
-    fishAppears();
-    trashAppears2()
-  }, 20);
-
 }
+
+//restart the game
+
+playAgain.onclick = () => {
+  playAgain.style.visibility = "hidden";
+  score = 0;
+  timer = "02:30";
+  time = 150;
+
+  startGame();
+};
 
 // adding the trash
 
@@ -122,6 +135,9 @@ class Trash {
 
   move() {
     this.x += this.speed;
+    if (time <= 150 && time >= 126) {
+      this.speed = -1;
+    }
     if (time <= 125 && time >= 100) {
       this.speed = -1.6;
     }
@@ -139,6 +155,7 @@ class Trash {
     }
     if (time === 0) {
       this.x = 1000;
+      this.speed = 0;
     }
     if (frames % 5 === 0) {
       this.frame++;
@@ -157,7 +174,6 @@ class Trash {
 
   draw() {
     this.move(),
-    console.log(theTrash)
       ctx.drawImage(
         imageTrash,
         this.frameX * this.fishImgWidth,
@@ -175,10 +191,11 @@ class Trash {
 function trashAppears() {
   theTrash.forEach((trash) => {
     trash.draw();
+    console.log(theTrash);
   });
   const randomX = randomIntFromInterval(10, 60);
   const trashPositionX = canvas.width + randomX;
-  if (frames % 100 === 0) {
+  if (frames % 100 === 0 && time > 0) {
     const newT = randomIntFromInterval(40, 400);
     theTrash.push(
       new Trash(trashPositionX, newT, 50, 50, this.speed, trashIds)
@@ -190,7 +207,6 @@ function trashAppears() {
 // adding the second trash
 
 let theTrash2 = [];
-
 
 let trashIds2 = 1;
 
@@ -212,6 +228,9 @@ class Trash2 {
 
   move() {
     this.x += this.speed;
+    if (time <= 150 && time >= 126) {
+      this.speed = -1.1;
+    }
     if (time <= 125 && time >= 100) {
       this.speed = -1.7;
     }
@@ -229,6 +248,7 @@ class Trash2 {
     }
     if (time === 0) {
       this.x = 1000;
+      this.speed = 0;
     }
     if (frames % 5 === 0) {
       this.frame++;
@@ -247,7 +267,6 @@ class Trash2 {
 
   draw() {
     this.move(),
-    console.log(theTrash2)
       ctx.drawImage(
         imageTrash2,
         this.frameX * this.fishImgWidth,
@@ -268,7 +287,7 @@ function trashAppears2() {
   });
   const randomX = randomIntFromInterval(10, 60);
   const trashPositionX = canvas.width + randomX;
-  if (frames % 100 === 0) {
+  if (frames % 100 === 0 && time > 0) {
     const newT = randomIntFromInterval(40, 400);
     theTrash2.push(
       new Trash2(trashPositionX, newT, 50, 50, this.speed, trashIds2)
@@ -276,8 +295,6 @@ function trashAppears2() {
     trashIds2++;
   }
 }
-
-
 
 //adding the fish
 
@@ -315,6 +332,9 @@ class Fish {
 
   move() {
     this.x += this.speed;
+    if (time <= 150 && time >= 126) {
+      this.speed = -0.9;
+    }
     if (time <= 125 && time >= 100) {
       this.speed = -1.4;
     }
@@ -332,6 +352,7 @@ class Fish {
     }
     if (time === 0) {
       this.x = 1000;
+      this.speed = 0;
     }
     if (frames % 5 === 0) {
       this.frame++;
@@ -367,11 +388,12 @@ class Fish {
 function fishAppears() {
   theFish.forEach((fish) => {
     fish.draw();
+    console.log(theFish);
   });
   const randomX = randomIntFromInterval(10, 60);
   const fishPositionX = canvas.width + randomX;
   frames++;
-  if (frames % 100 === 0) {
+  if (frames % 100 === 0 && time > 0) {
     const newY = randomIntFromInterval(40, 400);
     theFish.push(new Fish(fishPositionX, newY, 50, 50, this.speed, theFishIds));
 
@@ -401,9 +423,8 @@ canvas.addEventListener("click", (event) => {
       theFish = theFish.filter((fish) => {
         return fish.id !== element.id;
       });
-  
+
       score = score - 30;
-    
     }
   });
 
@@ -419,7 +440,6 @@ canvas.addEventListener("click", (event) => {
       });
 
       score = score + 100;
-    
     }
   });
   theTrash2.forEach((element) => {
@@ -434,7 +454,6 @@ canvas.addEventListener("click", (event) => {
       });
 
       score = score + 100;
-     
     }
   });
 });

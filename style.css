@@ -50,6 +50,26 @@ body {
   border-radius: 40em;
   border-style: none;
   padding: 1rem 1.3rem;
+
+}
+
+#btnPlayAgain{
+  visibility: hidden;
+  cursor: pointer;
+  width: 20%;
+  position: absolute;
+  font-family: -apple-system, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 40em;
+  border-style: none;
+  padding: 1rem 1.3rem;
+}
+
+.highScore{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 canvas {
