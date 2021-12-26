@@ -7,6 +7,7 @@ const canvasTop = canvas.offsetTop;
 const ctx = canvas.getContext("2d");
 const playAgain = document.querySelector("#btnPlayAgain");
 const checkHighScore = document.querySelector(".highScore");
+checkHighScore.style.visibility = "hidden"
 
 const imageFish1 = new Image();
 imageFish1.src = "./cartoon_fish_06_yellow_swim.png";
@@ -72,7 +73,8 @@ function startGame() {
   img.onload = startGame;
 
   document.getElementById("btnStart").style.display = "none";
-  highhiestScore();
+  checkHighScore.style.visibility = "visible"
+
 
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

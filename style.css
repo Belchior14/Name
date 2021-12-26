@@ -4,12 +4,12 @@
   box-sizing: border-box;
 }
 
-/*
-body {
 
-  background-image: url("./background.jpg");
+body {
+ background-color: rgb(3, 118, 194);
+
 }
-*/
+
 
 .introduction {
   position: absolute;
