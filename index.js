@@ -18,6 +18,12 @@ imageTrash.src = "./cartoon_fish_06_green_swim.png";
 const imageTrash2 = new Image();
 imageTrash2.src = "./cartoon_fish_06_blue_swim.png";
 
+const bazinga = new Audio();
+bazinga.src = "./bazinga.swf.mp3"
+
+const success = new Audio();
+success.src = "./great-success-borat.mp3"
+
 var timer = "02:30";
 var score = 0;
 var highScore = localStorage.getItem("highestScore") || 0;
@@ -93,6 +99,7 @@ function startGame() {
       clearInterval(timesUp);
       highhiestScore();
       timer = "00:00";
+      success.play();
       playAgain.style.visibility = "visible";
       theFish = [];
       theTrash = [];
@@ -427,6 +434,7 @@ canvas.addEventListener("click", (event) => {
       });
 
       score = score - 30;
+      bazinga.play();
     }
   });
 

@@ -11,6 +11,7 @@ body {
 }
 
 
+
 .introduction {
   position: absolute;
   width: 250px;
@@ -70,6 +71,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: -apple-system, sans-serif
 }
 
 canvas {
