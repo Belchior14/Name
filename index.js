@@ -7,22 +7,22 @@ const canvasTop = canvas.offsetTop;
 const ctx = canvas.getContext("2d");
 const playAgain = document.querySelector("#btnPlayAgain");
 const checkHighScore = document.querySelector(".highScore");
-checkHighScore.style.visibility = "hidden"
+checkHighScore.style.visibility = "hidden";
 
 const imageFish1 = new Image();
 imageFish1.src = "./cartoon_fish_06_yellow_swim.png";
 
 const imageTrash = new Image();
-imageTrash.src = "./cartoon_fish_06_green_swim.png";
+imageTrash.src = "./bottle.png";
 
 const imageTrash2 = new Image();
-imageTrash2.src = "./cartoon_fish_06_blue_swim.png";
+imageTrash2.src = "./medical_mask_PNG25.png";
 
 const bazinga = new Audio();
-bazinga.src = "./bazinga.swf.mp3"
+bazinga.src = "./bazinga.swf.mp3";
 
 const success = new Audio();
-success.src = "./great-success-borat.mp3"
+success.src = "./great-success-borat.mp3";
 
 var timer = "02:30";
 var score = 0;
@@ -79,8 +79,7 @@ function startGame() {
   img.onload = startGame;
 
   document.getElementById("btnStart").style.display = "none";
-  checkHighScore.style.visibility = "visible"
-
+  checkHighScore.style.visibility = "visible";
 
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -134,12 +133,6 @@ class Trash {
     this.height = argHeight;
     this.speed = -1;
     this.id = argID;
-    this.frame = 0;
-    this.frameX = 0;
-    this.frameY = 0;
-
-    this.fishImgWidth = 498;
-    this.fishImgHeight = 327;
   }
 
   move() {
@@ -166,29 +159,12 @@ class Trash {
       this.x = 1000;
       this.speed = 0;
     }
-    if (frames % 5 === 0) {
-      this.frame++;
-      if (this.frame >= 12) this.frame = 0;
-      if (this.frame === 3 || this.frame === 7 || this.frame === 11) {
-        this.frameX = 0;
-      } else {
-        this.frameX++;
-      }
-      if (this.frame < 3) this.frameY = 0;
-      else if (this.frame < 7) this.frameY = 1;
-      else if (this.frame < 11) this.frameY = 2;
-      else this.frameY = 0;
-    }
   }
 
   draw() {
     this.move(),
       ctx.drawImage(
         imageTrash,
-        this.frameX * this.fishImgWidth,
-        this.frameY * this.fishImgHeight,
-        this.fishImgWidth,
-        this.fishImgHeight,
         this.x,
         this.y,
         this.width,
@@ -227,12 +203,7 @@ class Trash2 {
     this.height = argHeight;
     this.speed = -1.1;
     this.id = argID;
-    this.frame = 0;
-    this.frameX = 0;
-    this.frameY = 0;
 
-    this.fishImgWidth = 498;
-    this.fishImgHeight = 327;
   }
 
   move() {
@@ -259,29 +230,13 @@ class Trash2 {
       this.x = 1000;
       this.speed = 0;
     }
-    if (frames % 5 === 0) {
-      this.frame++;
-      if (this.frame >= 12) this.frame = 0;
-      if (this.frame === 3 || this.frame === 7 || this.frame === 11) {
-        this.frameX = 0;
-      } else {
-        this.frameX++;
-      }
-      if (this.frame < 3) this.frameY = 0;
-      else if (this.frame < 7) this.frameY = 1;
-      else if (this.frame < 11) this.frameY = 2;
-      else this.frameY = 0;
-    }
+
   }
 
   draw() {
     this.move(),
       ctx.drawImage(
         imageTrash2,
-        this.frameX * this.fishImgWidth,
-        this.frameY * this.fishImgHeight,
-        this.fishImgWidth,
-        this.fishImgHeight,
         this.x,
         this.y,
         this.width,
