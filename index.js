@@ -9,8 +9,14 @@ const playAgain = document.querySelector("#btnPlayAgain");
 const checkHighScore = document.querySelector(".highScore");
 checkHighScore.style.visibility = "hidden";
 
+const introduction = document.querySelector(".introduction");
+const aquaman = document.querySelector(".aquaman");
+
 const imageFish1 = new Image();
 imageFish1.src = "./cartoon_fish_06_yellow_swim.png";
+
+const imageFish2 = new Image();
+imageFish2.src = "./cartoon_fish_06_blue_swim.png";
 
 const imageTrash = new Image();
 imageTrash.src = "./bottle.png";
@@ -36,6 +42,7 @@ function highhiestScore() {
     localStorage.setItem("highestScore", score);
     highScore = score;
     checkHighScore.textContent = `High Score: ${highScore}`;
+    alert("Congratulations! This is a new world record!!!");
   }
 }
 
@@ -80,14 +87,18 @@ function startGame() {
 
   document.getElementById("btnStart").style.display = "none";
   checkHighScore.style.visibility = "visible";
+  introduction.style.visibility = "hidden";
+  aquaman.style.visibility = "hidden";
 
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     backgroundImage.draw();
+    frames++;
     trashAppears();
     fishAppears();
     trashAppears2();
+    fishAppears2();
   }, 20);
 
   const timesUp = setInterval(() => {
@@ -98,9 +109,11 @@ function startGame() {
       clearInterval(timesUp);
       highhiestScore();
       timer = "00:00";
+      frames = 0;
       success.play();
       playAgain.style.visibility = "visible";
       theFish = [];
+      theFish2 = [];
       theTrash = [];
       theTrash2 = [];
     }
@@ -114,6 +127,7 @@ playAgain.onclick = () => {
   score = 0;
   timer = "02:30";
   time = 150;
+  frames = 0;
 
   startGame();
 };
@@ -126,7 +140,7 @@ let frames = 0;
 let trashIds = 1;
 
 class Trash {
-  constructor(argX, argY, argWidth, argHeight, argSpeed, argID) {
+  constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
     this.y = argY;
     this.width = argWidth;
@@ -136,6 +150,8 @@ class Trash {
   }
 
   move() {
+ 
+
     this.x += this.speed;
     if (time <= 150 && time >= 126) {
       this.speed = -1;
@@ -155,36 +171,29 @@ class Trash {
     if ((time <= 14) & (time >= 1)) {
       this.speed = -4.6;
     }
-    if (time === 0) {
-      this.x = 1000;
-      this.speed = 0;
-    }
   }
 
   draw() {
     this.move(),
-      ctx.drawImage(
-        imageTrash,
-        this.x,
-        this.y,
-        this.width,
-        this.height
-      );
+      ctx.drawImage(imageTrash, this.x, this.y, this.width, this.height);
   }
 }
 
 function trashAppears() {
   theTrash.forEach((trash) => {
     trash.draw();
-    console.log(theTrash);
   });
   const randomX = randomIntFromInterval(10, 60);
   const trashPositionX = canvas.width + randomX;
-  if (frames % 100 === 0 && time > 0) {
+  if (frames % 100 === 0 && time <= 150 && time >= 126) {
     const newT = randomIntFromInterval(40, 400);
-    theTrash.push(
-      new Trash(trashPositionX, newT, 50, 50, this.speed, trashIds)
-    );
+    theTrash.push(new Trash(trashPositionX, newT, 50, 50, trashIds));
+    trashIds++;
+  }
+
+  if (frames % 50 === 0 && time <= 125 && time > 0) {
+    const newT = randomIntFromInterval(40, 400);
+    theTrash.push(new Trash(trashPositionX, newT, 50, 50, trashIds));
     trashIds++;
   }
 }
@@ -196,14 +205,13 @@ let theTrash2 = [];
 let trashIds2 = 1;
 
 class Trash2 {
-  constructor(argX, argY, argWidth, argHeight, argSpeed, argID) {
+  constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
     this.y = argY;
     this.width = argWidth;
     this.height = argHeight;
-    this.speed = -1.1;
+    this.speed = -1;
     this.id = argID;
-
   }
 
   move() {
@@ -226,22 +234,11 @@ class Trash2 {
     if ((time <= 14) & (time >= 1)) {
       this.speed = -4.7;
     }
-    if (time === 0) {
-      this.x = 1000;
-      this.speed = 0;
-    }
-
   }
 
   draw() {
     this.move(),
-      ctx.drawImage(
-        imageTrash2,
-        this.x,
-        this.y,
-        this.width,
-        this.height
-      );
+      ctx.drawImage(imageTrash2, this.x, this.y, this.width, this.height);
   }
 }
 
@@ -251,11 +248,14 @@ function trashAppears2() {
   });
   const randomX = randomIntFromInterval(10, 60);
   const trashPositionX = canvas.width + randomX;
-  if (frames % 100 === 0 && time > 0) {
+  if (frames % 100 === 0 && time <= 150 && time >= 126) {
     const newT = randomIntFromInterval(40, 400);
-    theTrash2.push(
-      new Trash2(trashPositionX, newT, 50, 50, this.speed, trashIds2)
-    );
+    theTrash2.push(new Trash2(trashPositionX, newT, 50, 50, trashIds2));
+    trashIds2++;
+  }
+  if (frames % 50 === 0 && time <= 125 && time > 0) {
+    const newT = randomIntFromInterval(40, 400);
+    theTrash2.push(new Trash2(trashPositionX, newT, 50, 50, trashIds2));
     trashIds2++;
   }
 }
@@ -267,19 +267,7 @@ let theFish = [];
 let theFishIds = 1;
 
 class Fish {
-  constructor(
-    argX,
-    argY,
-    argWidth,
-    argHeight,
-    argSpeed,
-    argID,
-    argFishWidth,
-    argFrame,
-    argFrameX,
-    argFrameY,
-    argFishHeight
-  ) {
+  constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
     this.y = argY;
     this.width = argWidth;
@@ -314,10 +302,7 @@ class Fish {
     if ((time <= 14) & (time >= 1)) {
       this.speed = -4.4;
     }
-    if (time === 0) {
-      this.x = 1000;
-      this.speed = 0;
-    }
+
     if (frames % 5 === 0) {
       this.frame++;
       if (this.frame >= 12) this.frame = 0;
@@ -352,16 +337,114 @@ class Fish {
 function fishAppears() {
   theFish.forEach((fish) => {
     fish.draw();
-    console.log(theFish);
   });
   const randomX = randomIntFromInterval(10, 60);
   const fishPositionX = canvas.width + randomX;
-  frames++;
-  if (frames % 100 === 0 && time > 0) {
+
+  if (frames % 100 === 0 && time <= 150 && time >= 126) {
     const newY = randomIntFromInterval(40, 400);
-    theFish.push(new Fish(fishPositionX, newY, 50, 50, this.speed, theFishIds));
+    theFish.push(new Fish(fishPositionX, newY, 50, 50, theFishIds));
 
     theFishIds++;
+  }
+  if (frames % 50 === 0 && time <= 125 && time > 0) {
+    const newY = randomIntFromInterval(40, 400);
+    theFish.push(new Fish(fishPositionX, newY, 50, 50, theFishIds));
+
+    theFishIds++;
+  }
+}
+
+// adding the Fish2
+
+let theFish2 = [];
+
+let theFishIds2 = 1;
+
+class Fish2 {
+  constructor(argX, argY, argWidth, argHeight, argID) {
+    this.x = argX;
+    this.y = argY;
+    this.width = argWidth;
+    this.height = argHeight;
+    this.speed = -0.9;
+    this.id = argID;
+    this.frame = 0;
+    this.frameX = 0;
+    this.frameY = 0;
+
+    this.fishImgWidth = 498;
+    this.fishImgHeight = 327;
+  }
+
+  move() {
+    this.x += this.speed;
+    if (time <= 150 && time >= 126) {
+      this.speed = -0.8;
+    }
+    if (time <= 125 && time >= 100) {
+      this.speed = -1.3;
+    }
+    if ((time <= 99) & (time >= 60)) {
+      this.speed = -2.05;
+    }
+    if ((time <= 59) & (time >= 40)) {
+      this.speed = -3.05;
+    }
+    if ((time <= 39) & (time >= 15)) {
+      this.speed = -3.8;
+    }
+    if ((time <= 14) & (time >= 1)) {
+      this.speed = -4.3;
+    }
+
+    if (frames % 5 === 0) {
+      this.frame++;
+      if (this.frame >= 12) this.frame = 0;
+      if (this.frame === 3 || this.frame === 7 || this.frame === 11) {
+        this.frameX = 0;
+      } else {
+        this.frameX++;
+      }
+      if (this.frame < 3) this.frameY = 0;
+      else if (this.frame < 7) this.frameY = 1;
+      else if (this.frame < 11) this.frameY = 2;
+      else this.frameY = 0;
+    }
+  }
+
+  draw() {
+    this.move(),
+      ctx.drawImage(
+        imageFish2,
+        this.frameX * this.fishImgWidth,
+        this.frameY * this.fishImgHeight,
+        this.fishImgWidth,
+        this.fishImgHeight,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
+  }
+}
+
+function fishAppears2() {
+  theFish2.forEach((fish2) => {
+    fish2.draw();
+  });
+  const randomX = randomIntFromInterval(10, 60);
+  const fishPositionX = canvas.width + randomX;
+
+  if (frames % 100 === 0 && time <= 150 && time >= 126) {
+    const newY = randomIntFromInterval(40, 400);
+    theFish2.push(new Fish2(fishPositionX, newY, 50, 50, theFishIds2));
+    theFishIds2++;
+  }
+  if (frames % 100 === 0 && time <= 125 && time > 0) {
+    const newY = randomIntFromInterval(40, 400);
+    theFish2.push(new Fish2(fishPositionX, newY, 50, 50, theFishIds2));
+    theFishIds2++;
   }
 }
 
@@ -374,8 +457,8 @@ function randomIntFromInterval(min, max) {
 // clicking things on canvas
 
 canvas.addEventListener("click", (event) => {
-  const x = event.pageX - canvasLeft;
-  const y = event.pageY - canvasTop;
+  const x = event.layerX;
+  const y = event.layerY;
 
   theFish.forEach((element) => {
     if (
@@ -387,8 +470,26 @@ canvas.addEventListener("click", (event) => {
       theFish = theFish.filter((fish) => {
         return fish.id !== element.id;
       });
-
+      if(score>=30){
       score = score - 30;
+      }
+      bazinga.play();
+    }
+  });
+
+  theFish2.forEach((element) => {
+    if (
+      y > element.y &&
+      y < element.y + element.height &&
+      x > element.x &&
+      x < element.x + element.width
+    ) {
+      theFish2 = theFish2.filter((fish2) => {
+        return fish2.id !== element.id;
+      });
+      if(score >=30){
+      score = score - 30;
+      }
       bazinga.play();
     }
   });
