@@ -63,7 +63,7 @@ const backgroundImage = {
 
 // Timer
 
-let time = 5;
+let time = 150;
 
 function realTime(second) {
   const min = Math.floor(second / 60);
@@ -109,7 +109,6 @@ function startGame() {
       clearInterval(timesUp);
       highhiestScore();
       timer = "00:00";
-      frames = 0;
       success.play();
       playAgain.style.visibility = "visible";
       theFish = [];
@@ -150,8 +149,6 @@ class Trash {
   }
 
   move() {
- 
-
     this.x += this.speed;
     if (time <= 150 && time >= 126) {
       this.speed = -1;
@@ -301,10 +298,6 @@ class Fish {
     }
     if ((time <= 14) & (time >= 1)) {
       this.speed = -4.4;
-    }
-
-    if(time ===0){
-      this.speed = -0.9
     }
 
     if (frames % 5 === 0) {
@@ -474,8 +467,8 @@ canvas.addEventListener("click", (event) => {
       theFish = theFish.filter((fish) => {
         return fish.id !== element.id;
       });
-      if(score>=30){
-      score = score - 30;
+      if (score >= 30) {
+        score = score - 30;
       }
       bazinga.play();
     }
@@ -491,8 +484,8 @@ canvas.addEventListener("click", (event) => {
       theFish2 = theFish2.filter((fish2) => {
         return fish2.id !== element.id;
       });
-      if(score >=30){
-      score = score - 30;
+      if (score >= 30) {
+        score = score - 30;
       }
       bazinga.play();
     }
