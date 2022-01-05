@@ -63,7 +63,7 @@ const backgroundImage = {
 
 // Timer
 
-let time = 150;
+let time = 5;
 
 function realTime(second) {
   const min = Math.floor(second / 60);
@@ -301,6 +301,10 @@ class Fish {
     }
     if ((time <= 14) & (time >= 1)) {
       this.speed = -4.4;
+    }
+
+    if(time ===0){
+      this.speed = -0.9
     }
 
     if (frames % 5 === 0) {
