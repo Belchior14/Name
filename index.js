@@ -30,6 +30,9 @@ bazinga.src = "./bazinga.swf.mp3";
 const success = new Audio();
 success.src = "./great-success-borat.mp3";
 
+const fail = new Audio();
+fail.src = "./Nelson.mp3";
+
 var timer = "02:30";
 var score = 0;
 var highScore = localStorage.getItem("highestScore") || 0;
@@ -39,6 +42,7 @@ checkHighScore.textContent = `High Score: ${highScore}`;
 
 function highhiestScore() {
   if (score > localStorage.getItem("highestScore")) {
+    success.play();
     localStorage.setItem("highestScore", score);
     highScore = score;
     checkHighScore.textContent = `High Score: ${highScore}`;
@@ -101,7 +105,7 @@ function startGame() {
     fishAppears2();
   }, 20);
 
-  const timesUp = setInterval(() => {
+  let timesUp = setInterval(() => {
     time--;
     realTime(time);
 
@@ -109,7 +113,6 @@ function startGame() {
       clearInterval(timesUp);
       highhiestScore();
       timer = "00:00";
-      success.play();
       playAgain.style.visibility = "visible";
       theFish = [];
       theFish2 = [];
@@ -467,10 +470,16 @@ canvas.addEventListener("click", (event) => {
       theFish = theFish.filter((fish) => {
         return fish.id !== element.id;
       });
-      if (score >= 30) {
+
+      if (score >= 0) {
         score = score - 30;
       }
-      bazinga.play();
+      if (score > 1) {
+        bazinga.play();
+      }
+      if (score === 0 || score < 0) {
+        gameOver();
+      }
     }
   });
 
@@ -484,10 +493,15 @@ canvas.addEventListener("click", (event) => {
       theFish2 = theFish2.filter((fish2) => {
         return fish2.id !== element.id;
       });
-      if (score >= 30) {
+      if (score >= 0) {
         score = score - 30;
       }
-      bazinga.play();
+      if (score > 1) {
+        bazinga.play();
+      }
+      if (score === 0 || score < 0) {
+        gameOver();
+      }
     }
   });
 
@@ -520,3 +534,18 @@ canvas.addEventListener("click", (event) => {
     }
   });
 });
+
+//game over
+
+function gameOver() {
+  fail.play();
+  timer = "00:00";
+  time = 0;
+  playAgain.style.visibility = "visible";
+  theFish = [];
+  theFish2 = [];
+  theTrash = [];
+  theTrash2 = [];
+  alert("Game Over!!! You are not ready to help me! Silly human!");
+}
+
