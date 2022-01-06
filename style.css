@@ -4,13 +4,9 @@
   box-sizing: border-box;
 }
 
-
 body {
- background-color: rgb(3, 118, 194);
-
+  background-color: rgb(3, 118, 194);
 }
-
-
 
 .introduction {
   position: absolute;
@@ -28,9 +24,7 @@ body {
   color: rgb(189, 189, 0);
 }
 
-
-
-#hydro{
+#hydro {
   position: absolute;
   left: 5%;
   top: 0.5%;
@@ -38,14 +32,12 @@ body {
 }
 
 .startAndGame {
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 30px;
 }
-
-
 
 #btnStart {
   cursor: pointer;
@@ -57,10 +49,9 @@ body {
   border-radius: 40em;
   border-style: none;
   padding: 1rem 1.3rem;
-
 }
 
-#btnPlayAgain{
+#btnPlayAgain {
   visibility: hidden;
   cursor: pointer;
   width: 20%;
@@ -73,17 +64,15 @@ body {
   padding: 1rem 1.3rem;
 }
 
-.highScore{
+.highScore {
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: -apple-system, sans-serif;
   font-size: larger;
-
 }
 
 canvas {
   cursor: pointer;
   border: 3px solid black;
-  
 }
