@@ -33,7 +33,7 @@ success.src = "./great-success-borat.mp3";
 const fail = new Audio();
 fail.src = "./Nelson.mp3";
 
-var timer = "01:30";
+var timer = "02:30";
 var score = 0;
 var highScore = localStorage.getItem("highestScore") || 0;
 checkHighScore.textContent = `High Score: ${highScore}`;
@@ -67,7 +67,7 @@ const backgroundImage = {
 
 // Timer
 
-let time = 90;
+let time = 150;
 
 function realTime(second) {
   const min = Math.floor(second / 60);
