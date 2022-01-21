@@ -76,3 +76,16 @@ canvas {
   cursor: pointer;
   border: 3px solid black;
 }
+
+.linkedin{
+  color: white;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#link{
+  text-decoration: none;
+  color: white;
+}
