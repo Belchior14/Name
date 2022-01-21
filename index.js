@@ -1,5 +1,5 @@
 const img = new Image();
-img.src = "images/imgfundo.jpg";
+img.src = "/images/imgfundo.jpg";
 
 //variables
 
