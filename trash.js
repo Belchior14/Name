@@ -1,8 +1,8 @@
 const imageTrash = new Image();
-imageTrash.src = "/images/bottle.png";
+imageTrash.src = "/bottle.png";
 
 const imageTrash2 = new Image();
-imageTrash2.src = "/images/medical_mask_PNG25.png";
+imageTrash2.src = "/medical_mask_PNG25.png";
 
 let theTrash = [];
 let frames = 0;

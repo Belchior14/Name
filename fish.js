@@ -1,8 +1,8 @@
 const imageFish1 = new Image();
-imageFish1.src = "/images/cartoon_fish_06_yellow_swim.png";
+imageFish1.src = "/cartoon_fish_06_yellow_swim.png";
 
 const imageFish2 = new Image();
-imageFish2.src = "/images/cartoon_fish_06_blue_swim.png";
+imageFish2.src = "/cartoon_fish_06_blue_swim.png";
 
 //adding the fish
 
