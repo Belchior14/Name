@@ -21,6 +21,18 @@ checkHighScore.textContent = `High Score: ${highScore}`;
 const introduction = document.querySelector(".introduction");
 const aquaman = document.querySelector(".aquaman");
 
+const imageTrash = new Image();
+imageTrash.src = "/bottle.png";
+
+const imageTrash2 = new Image();
+imageTrash2.src = "/medical_mask_PNG25.png";
+
+const imageFish1 = new Image();
+imageFish1.src = "/cartoon_fish_06_yellow_swim.png";
+
+const imageFish2 = new Image();
+imageFish2.src = "/cartoon_fish_06_blue_swim.png";
+
 const bazinga = new Audio();
 bazinga.src = "/sounds/bazinga.swf.mp3";
 
@@ -125,108 +137,6 @@ playAgain.onclick = () => {
 
   startGame();
 };
-
-// clicking things on canvas
-
-canvas.addEventListener("click", (event) => {
-  const x = event.layerX;
-  const y = event.layerY;
-
-  theFish.forEach((element) => {
-    if (
-      y > element.y &&
-      y < element.y + element.height &&
-      x > element.x &&
-      x < element.x + element.width
-    ) {
-      theFish = theFish.filter((fish) => {
-        return fish.id !== element.id;
-      });
-
-      if (score >= 0) {
-        score = score - 30;
-      }
-      if (score > 1) {
-        bazinga.play();
-      }
-      if (score === 0 || score < 0) {
-        gameOver();
-      }
-    }
-  });
-
-  theFish2.forEach((element) => {
-    if (
-      y > element.y &&
-      y < element.y + element.height &&
-      x > element.x &&
-      x < element.x + element.width
-    ) {
-      theFish2 = theFish2.filter((fish2) => {
-        return fish2.id !== element.id;
-      });
-      if (score >= 0) {
-        score = score - 30;
-      }
-      if (score > 1) {
-        bazinga.play();
-      }
-      if (score === 0 || score < 0) {
-        gameOver();
-      }
-    }
-  });
-
-  theTrash.forEach((element) => {
-    if (
-      y > element.y &&
-      y < element.y + element.height &&
-      x > element.x &&
-      x < element.x + element.width
-    ) {
-      theTrash = theTrash.filter((trash) => {
-        return trash.id !== element.id;
-      });
-
-      score = score + 100;
-    }
-  });
-  theTrash2.forEach((element) => {
-    if (
-      y > element.y &&
-      y < element.y + element.height &&
-      x > element.x &&
-      x < element.x + element.width
-    ) {
-      theTrash2 = theTrash2.filter((trash) => {
-        return trash.id !== element.id;
-      });
-
-      score = score + 100;
-    }
-  });
-});
-
-//game over
-
-function gameOver() {
-  fail.play();
-  timer = "00:00";
-  time = 0;
-  playAgain.style.visibility = "visible";
-  theFish = [];
-  theFish2 = [];
-  theTrash = [];
-  theTrash2 = [];
-  alert("Game Over!!! You are not ready to help me! Silly human!");
-}
-
-
-const imageTrash = new Image();
-imageTrash.src = "/bottle.png";
-
-const imageTrash2 = new Image();
-imageTrash2.src = "/medical_mask_PNG25.png";
 
 let theTrash = [];
 let frames = 0;
@@ -351,21 +261,6 @@ function trashAppears2() {
     trashIds2++;
   }
 }
-
-
-
-
-
-
-// fish 
-
-const imageFish1 = new Image();
-imageFish1.src = "/cartoon_fish_06_yellow_swim.png";
-
-const imageFish2 = new Image();
-imageFish2.src = "/cartoon_fish_06_blue_swim.png";
-
-//adding the fish
 
 let theFish = [];
 
@@ -551,6 +446,101 @@ function fishAppears2() {
     theFish2.push(new Fish2(fishPositionX, newY, 50, 50, theFishIds2));
     theFishIds2++;
   }
+}
+
+// clicking things on canvas
+
+canvas.addEventListener("click", (event) => {
+  const x = event.layerX;
+  const y = event.layerY;
+
+  theFish.forEach((element) => {
+    if (
+      y > element.y &&
+      y < element.y + element.height &&
+      x > element.x &&
+      x < element.x + element.width
+    ) {
+      theFish = theFish.filter((fish) => {
+        return fish.id !== element.id;
+      });
+
+      if (score >= 0) {
+        score = score - 30;
+      }
+      if (score > 1) {
+        bazinga.play();
+      }
+      if (score === 0 || score < 0) {
+        gameOver();
+      }
+    }
+  });
+
+  theFish2.forEach((element) => {
+    if (
+      y > element.y &&
+      y < element.y + element.height &&
+      x > element.x &&
+      x < element.x + element.width
+    ) {
+      theFish2 = theFish2.filter((fish2) => {
+        return fish2.id !== element.id;
+      });
+      if (score >= 0) {
+        score = score - 30;
+      }
+      if (score > 1) {
+        bazinga.play();
+      }
+      if (score === 0 || score < 0) {
+        gameOver();
+      }
+    }
+  });
+
+  theTrash.forEach((element) => {
+    if (
+      y > element.y &&
+      y < element.y + element.height &&
+      x > element.x &&
+      x < element.x + element.width
+    ) {
+      theTrash = theTrash.filter((trash) => {
+        return trash.id !== element.id;
+      });
+
+      score = score + 100;
+    }
+  });
+  theTrash2.forEach((element) => {
+    if (
+      y > element.y &&
+      y < element.y + element.height &&
+      x > element.x &&
+      x < element.x + element.width
+    ) {
+      theTrash2 = theTrash2.filter((trash) => {
+        return trash.id !== element.id;
+      });
+
+      score = score + 100;
+    }
+  });
+});
+
+//game over
+
+function gameOver() {
+  fail.play();
+  timer = "00:00";
+  time = 0;
+  playAgain.style.visibility = "visible";
+  theFish = [];
+  theFish2 = [];
+  theTrash = [];
+  theTrash2 = [];
+  alert("Game Over!!! You are not ready to help me! Silly human!");
 }
 
 //that random trick
