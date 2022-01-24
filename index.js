@@ -1,10 +1,5 @@
 const img = new Image();
-img.src = "/imgfundo.jpg";
-
-//variables
-
-//declaring variables
-
+img.src = "./imgfundo.jpg";
 const canvas = document.querySelector(".myCanvas");
 const canvasLeft = canvas.offsetLeft;
 const canvasTop = canvas.offsetTop;
@@ -12,38 +7,29 @@ const ctx = canvas.getContext("2d");
 const playAgain = document.querySelector("#btnPlayAgain");
 const checkHighScore = document.querySelector(".highScore");
 checkHighScore.style.visibility = "hidden";
-
-let timer = "02:30";
-let score = 0;
-let highScore = localStorage.getItem("highestScore") || 0;
-checkHighScore.textContent = `High Score: ${highScore}`;
-
 const introduction = document.querySelector(".introduction");
 const aquaman = document.querySelector(".aquaman");
-
-const imageTrash = new Image();
-imageTrash.src = "/bottle.png";
-
-const imageTrash2 = new Image();
-imageTrash2.src = "/medical_mask_PNG25.png";
-
 const imageFish1 = new Image();
-imageFish1.src = "/cartoon_fish_06_yellow_swim.png";
-
+imageFish1.src = "./cartoon_fish_06_yellow_swim.png";
 const imageFish2 = new Image();
-imageFish2.src = "/cartoon_fish_06_blue_swim.png";
-
+imageFish2.src = "./cartoon_fish_06_blue_swim.png";
+const imageTrash = new Image();
+imageTrash.src = "./bottle.png";
+const imageTrash2 = new Image();
+imageTrash2.src = "./medical_mask_PNG25.png";
 const bazinga = new Audio();
-bazinga.src = "/sounds/bazinga.swf.mp3";
-
+bazinga.src = "./bazinga.swf.mp3";
 const success = new Audio();
-success.src = "/sounds/great-success-borat.mp3";
-
+success.src = "./great-success-borat.mp3";
 const fail = new Audio();
-fail.src = "/sounds/Nelson.mp3";
+fail.src = "./Nelson.mp3";
 
+
+var timer = "02:30";
+var score = 0;
+var highScore = localStorage.getItem("highestScore") || 0;
+checkHighScore.textContent = `High Score: ${highScore}`;
 // check the High Score
-
 function highhiestScore() {
   if (score > localStorage.getItem("highestScore")) {
     success.play();
@@ -53,13 +39,10 @@ function highhiestScore() {
     alert("Congratulations! This is a new world record!!!");
   }
 }
-
 //img background
-
 const backgroundImage = {
   img: img,
   x: 0,
-
   draw: function () {
     ctx.drawImage(this.img, this.x, 0, 746, 480);
     ctx.fillStyle = "black";
@@ -78,29 +61,22 @@ function realTime(second) {
   const sec = Math.floor(second % 60);
   timer = `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
 }
-
 // timer done
-
 window.onload = function () {
   document.getElementById("btnStart").onclick = function () {
     document.getElementById("btnStart").disabled = true;
     startGame();
   };
 };
-
 //main function
-
 function startGame() {
   img.onload = startGame;
-
   document.getElementById("btnStart").style.display = "none";
   checkHighScore.style.visibility = "visible";
   introduction.style.visibility = "hidden";
   aquaman.style.visibility = "hidden";
-
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     backgroundImage.draw();
     frames++;
     trashAppears();
@@ -108,11 +84,9 @@ function startGame() {
     trashAppears2();
     fishAppears2();
   }, 20);
-
   let timesUp = setInterval(() => {
     time--;
     realTime(time);
-
     if (time <= 0 || time < 1) {
       clearInterval(timesUp);
       highhiestScore();
@@ -125,24 +99,19 @@ function startGame() {
     }
   }, 1000);
 }
-
 //restart the game
-
 playAgain.onclick = () => {
   playAgain.style.visibility = "hidden";
   score = 0;
   timer = "02:30";
   time = 150;
   frames = 0;
-
   startGame();
 };
-
+// adding the trash
 let theTrash = [];
 let frames = 0;
-
 let trashIds = 1;
-
 class Trash {
   constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
@@ -152,7 +121,6 @@ class Trash {
     this.speed = -1;
     this.id = argID;
   }
-
   move() {
     this.x += this.speed;
     if (time <= 150 && time >= 126) {
@@ -161,26 +129,24 @@ class Trash {
     if (time <= 125 && time >= 100) {
       this.speed = -1.6;
     }
-    if (time <= 99 && time >= 60) {
+    if ((time <= 99) & (time >= 60)) {
       this.speed = -2.35;
     }
-    if (time <= 59 && time >= 40) {
+    if ((time <= 59) & (time >= 40)) {
       this.speed = -3.35;
     }
-    if (time <= 39 && time >= 15) {
+    if ((time <= 39) & (time >= 15)) {
       this.speed = -4.1;
     }
-    if (time <= 14 && time >= 1) {
+    if ((time <= 14) & (time >= 1)) {
       this.speed = -4.6;
     }
   }
-
   draw() {
     this.move(),
       ctx.drawImage(imageTrash, this.x, this.y, this.width, this.height);
   }
 }
-
 function trashAppears() {
   theTrash.forEach((trash) => {
     trash.draw();
@@ -192,20 +158,15 @@ function trashAppears() {
     theTrash.push(new Trash(trashPositionX, newT, 50, 50, trashIds));
     trashIds++;
   }
-
   if (frames % 50 === 0 && time <= 125 && time > 0) {
     const newT = randomIntFromInterval(40, 400);
     theTrash.push(new Trash(trashPositionX, newT, 50, 50, trashIds));
     trashIds++;
   }
 }
-
 // adding the second trash
-
 let theTrash2 = [];
-
 let trashIds2 = 1;
-
 class Trash2 {
   constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
@@ -215,7 +176,6 @@ class Trash2 {
     this.speed = -1;
     this.id = argID;
   }
-
   move() {
     this.x += this.speed;
     if (time <= 150 && time >= 126) {
@@ -224,26 +184,24 @@ class Trash2 {
     if (time <= 125 && time >= 100) {
       this.speed = -1.7;
     }
-    if (time <= 99 && time >= 60) {
+    if ((time <= 99) & (time >= 60)) {
       this.speed = -2.45;
     }
-    if (time <= 59 && time >= 40) {
+    if ((time <= 59) & (time >= 40)) {
       this.speed = -3.45;
     }
-    if (time <= 39 && time >= 15) {
+    if ((time <= 39) & (time >= 15)) {
       this.speed = -4.2;
     }
-    if (time <= 14 && time >= 1) {
+    if ((time <= 14) & (time >= 1)) {
       this.speed = -4.7;
     }
   }
-
   draw() {
     this.move(),
       ctx.drawImage(imageTrash2, this.x, this.y, this.width, this.height);
   }
 }
-
 function trashAppears2() {
   theTrash2.forEach((trash) => {
     trash.draw();
@@ -261,11 +219,9 @@ function trashAppears2() {
     trashIds2++;
   }
 }
-
+//adding the fish
 let theFish = [];
-
 let theFishIds = 1;
-
 class Fish {
   constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
@@ -277,11 +233,9 @@ class Fish {
     this.frame = 0;
     this.frameX = 0;
     this.frameY = 0;
-
     this.fishImgWidth = 498;
     this.fishImgHeight = 327;
   }
-
   move() {
     this.x += this.speed;
     if (time <= 150 && time >= 126) {
@@ -290,19 +244,18 @@ class Fish {
     if (time <= 125 && time >= 100) {
       this.speed = -1.4;
     }
-    if (time <= 99 && time >= 60) {
+    if ((time <= 99) & (time >= 60)) {
       this.speed = -2.15;
     }
-    if (time <= 59 && time >= 40) {
+    if ((time <= 59) & (time >= 40)) {
       this.speed = -3.15;
     }
-    if (time <= 39 && time >= 15) {
+    if ((time <= 39) & (time >= 15)) {
       this.speed = -3.9;
     }
-    if (time <= 14 && time >= 1) {
+    if ((time <= 14) & (time >= 1)) {
       this.speed = -4.4;
     }
-
     if (frames % 5 === 0) {
       this.frame++;
       if (this.frame >= 12) this.frame = 0;
@@ -317,7 +270,6 @@ class Fish {
       else this.frameY = 0;
     }
   }
-
   draw() {
     this.move(),
       ctx.drawImage(
@@ -333,34 +285,26 @@ class Fish {
       );
   }
 }
-
 function fishAppears() {
   theFish.forEach((fish) => {
     fish.draw();
   });
   const randomX = randomIntFromInterval(10, 60);
   const fishPositionX = canvas.width + randomX;
-
   if (frames % 100 === 0 && time <= 150 && time >= 126) {
     const newY = randomIntFromInterval(40, 400);
     theFish.push(new Fish(fishPositionX, newY, 50, 50, theFishIds));
-
     theFishIds++;
   }
   if (frames % 50 === 0 && time <= 125 && time > 0) {
     const newY = randomIntFromInterval(40, 400);
     theFish.push(new Fish(fishPositionX, newY, 50, 50, theFishIds));
-
     theFishIds++;
   }
 }
-
 // adding the Fish2
-
 let theFish2 = [];
-
 let theFishIds2 = 1;
-
 class Fish2 {
   constructor(argX, argY, argWidth, argHeight, argID) {
     this.x = argX;
@@ -372,11 +316,9 @@ class Fish2 {
     this.frame = 0;
     this.frameX = 0;
     this.frameY = 0;
-
     this.fishImgWidth = 498;
     this.fishImgHeight = 327;
   }
-
   move() {
     this.x += this.speed;
     if (time <= 150 && time >= 126) {
@@ -385,19 +327,18 @@ class Fish2 {
     if (time <= 125 && time >= 100) {
       this.speed = -1.3;
     }
-    if (time <= 99 && time >= 60) {
+    if ((time <= 99) & (time >= 60)) {
       this.speed = -2.05;
     }
-    if (time <= 59 && time >= 40) {
+    if ((time <= 59) & (time >= 40)) {
       this.speed = -3.05;
     }
-    if (time <= 39 && time >= 15) {
+    if ((time <= 39) & (time >= 15)) {
       this.speed = -3.8;
     }
-    if (time <= 14 && time >= 1) {
+    if ((time <= 14) & (time >= 1)) {
       this.speed = -4.3;
     }
-
     if (frames % 5 === 0) {
       this.frame++;
       if (this.frame >= 12) this.frame = 0;
@@ -412,7 +353,6 @@ class Fish2 {
       else this.frameY = 0;
     }
   }
-
   draw() {
     this.move(),
       ctx.drawImage(
@@ -428,14 +368,12 @@ class Fish2 {
       );
   }
 }
-
 function fishAppears2() {
   theFish2.forEach((fish2) => {
     fish2.draw();
   });
   const randomX = randomIntFromInterval(10, 60);
   const fishPositionX = canvas.width + randomX;
-
   if (frames % 100 === 0 && time <= 150 && time >= 126) {
     const newY = randomIntFromInterval(40, 400);
     theFish2.push(new Fish2(fishPositionX, newY, 50, 50, theFishIds2));
@@ -447,13 +385,14 @@ function fishAppears2() {
     theFishIds2++;
   }
 }
-
+//that random trick
+function randomIntFromInterval(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 // clicking things on canvas
-
 canvas.addEventListener("click", (event) => {
   const x = event.layerX;
   const y = event.layerY;
-
   theFish.forEach((element) => {
     if (
       y > element.y &&
@@ -464,7 +403,6 @@ canvas.addEventListener("click", (event) => {
       theFish = theFish.filter((fish) => {
         return fish.id !== element.id;
       });
-
       if (score >= 0) {
         score = score - 30;
       }
@@ -476,7 +414,6 @@ canvas.addEventListener("click", (event) => {
       }
     }
   });
-
   theFish2.forEach((element) => {
     if (
       y > element.y &&
@@ -498,7 +435,6 @@ canvas.addEventListener("click", (event) => {
       }
     }
   });
-
   theTrash.forEach((element) => {
     if (
       y > element.y &&
@@ -509,7 +445,6 @@ canvas.addEventListener("click", (event) => {
       theTrash = theTrash.filter((trash) => {
         return trash.id !== element.id;
       });
-
       score = score + 100;
     }
   });
@@ -523,14 +458,11 @@ canvas.addEventListener("click", (event) => {
       theTrash2 = theTrash2.filter((trash) => {
         return trash.id !== element.id;
       });
-
       score = score + 100;
     }
   });
 });
-
 //game over
-
 function gameOver() {
   fail.play();
   timer = "00:00";
@@ -541,10 +473,4 @@ function gameOver() {
   theTrash = [];
   theTrash2 = [];
   alert("Game Over!!! You are not ready to help me! Silly human!");
-}
-
-//that random trick
-
-function randomIntFromInterval(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
 }
