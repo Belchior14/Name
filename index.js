@@ -24,7 +24,6 @@ success.src = "./great-success-borat.mp3";
 const fail = new Audio();
 fail.src = "./Nelson.mp3";
 
-
 var timer = "02:30";
 var score = 0;
 var highScore = localStorage.getItem("highestScore") || 0;
@@ -129,16 +128,16 @@ class Trash {
     if (time <= 125 && time >= 100) {
       this.speed = -1.6;
     }
-    if ((time <= 99) & (time >= 60)) {
+    if (time <= 99 && time >= 60) {
       this.speed = -2.35;
     }
-    if ((time <= 59) & (time >= 40)) {
+    if (time <= 59 && time >= 40) {
       this.speed = -3.35;
     }
-    if ((time <= 39) & (time >= 15)) {
+    if (time <= 39 && time >= 15) {
       this.speed = -4.1;
     }
-    if ((time <= 14) & (time >= 1)) {
+    if (time <= 14 && time >= 1) {
       this.speed = -4.6;
     }
   }
@@ -184,16 +183,16 @@ class Trash2 {
     if (time <= 125 && time >= 100) {
       this.speed = -1.7;
     }
-    if ((time <= 99) & (time >= 60)) {
+    if (time <= 99 && time >= 60) {
       this.speed = -2.45;
     }
-    if ((time <= 59) & (time >= 40)) {
+    if (time <= 59 && time >= 40) {
       this.speed = -3.45;
     }
-    if ((time <= 39) & (time >= 15)) {
+    if (time <= 39 && time >= 15) {
       this.speed = -4.2;
     }
-    if ((time <= 14) & (time >= 1)) {
+    if (time <= 14 && time >= 1) {
       this.speed = -4.7;
     }
   }
@@ -244,16 +243,16 @@ class Fish {
     if (time <= 125 && time >= 100) {
       this.speed = -1.4;
     }
-    if ((time <= 99) & (time >= 60)) {
+    if (time <= 99 && time >= 60) {
       this.speed = -2.15;
     }
-    if ((time <= 59) & (time >= 40)) {
+    if (time <= 59 && time >= 40) {
       this.speed = -3.15;
     }
-    if ((time <= 39) & (time >= 15)) {
+    if (time <= 39 && time >= 15) {
       this.speed = -3.9;
     }
-    if ((time <= 14) & (time >= 1)) {
+    if (time <= 14 && time >= 1) {
       this.speed = -4.4;
     }
     if (frames % 5 === 0) {
@@ -327,16 +326,16 @@ class Fish2 {
     if (time <= 125 && time >= 100) {
       this.speed = -1.3;
     }
-    if ((time <= 99) & (time >= 60)) {
+    if (time <= 99 && time >= 60) {
       this.speed = -2.05;
     }
-    if ((time <= 59) & (time >= 40)) {
+    if (time <= 59 && time >= 40) {
       this.speed = -3.05;
     }
-    if ((time <= 39) & (time >= 15)) {
+    if (time <= 39 && time >= 15) {
       this.speed = -3.8;
     }
-    if ((time <= 14) & (time >= 1)) {
+    if (time <= 14 && time >= 1) {
       this.speed = -4.3;
     }
     if (frames % 5 === 0) {
