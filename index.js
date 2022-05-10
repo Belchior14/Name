@@ -390,8 +390,9 @@ function randomIntFromInterval(min, max) {
 }
 // clicking things on canvas
 canvas.addEventListener("click", (event) => {
-  const x = event.layerX;
-  const y = event.layerY;
+  console.log(event)
+  const x = event.offsetX;
+  const y = event.offsetY;
   theFish.forEach((element) => {
     if (
       y > element.y &&
